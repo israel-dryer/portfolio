@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>og</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+  /* Source for src/static/og-image.png — rendered by scripts/og-image.js.
+     Same palette and faces as the site, so the card and the page it previews
+     look like one thing. Edit here, then `npm run og`. */
+  :root {
+    --ground:#E9ECF1; --surface:#FFFFFF; --sunken:#F3F5F8;
+    --ink:#10151C; --muted:#5B6675; --faint:#8A94A3;
+    --line:#D0D6DE; --hairline:#E2E6EC; --accent:#23458F;
+    --display:'Familjen Grotesk','Helvetica Neue',Arial,sans-serif;
+    --mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;
+    --body:system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+
+  body {
+    width: 1200px; height: 630px;
+    background: var(--ground);
+    font-family: var(--body);
+    color: var(--ink);
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* the card sits on a surface panel, echoing the page's panels */
+  .card {
+    position: absolute; inset: 40px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .bar {
+    display: flex; align-items: baseline; justify-content: space-between;
+    padding: 20px 40px;
+    background: var(--sunken);
+    border-bottom: 1px solid var(--hairline);
+    font-family: var(--mono);
+    font-size: 17px;
+    color: var(--faint);
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  .bar .l { font-weight: 700; color: var(--muted); }
+
+  .main { flex: 1; padding: 0 40px 34px; display: flex; flex-direction: column; justify-content: center; }
+
+  h1 {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 88px;
+    letter-spacing: -.03em;
+    line-height: 1;
+    margin: 0 0 26px;
+  }
+
+  .thesis {
+    font-size: 37px;
+    line-height: 1.24;
+    max-width: 27ch;
+    margin: 0;
+    color: var(--ink);
+  }
+
+  /* the three libraries, as the page's own stat strip */
+  .strip {
+    display: flex;
+    border-top: 1px solid var(--hairline);
+    background: var(--sunken);
+    margin-top: auto;
+  }
+  .cell {
+    flex: 1;
+    padding: 20px 40px 22px;
+    border-right: 1px solid var(--hairline);
+  }
+  .cell:last-child { border-right: 0; }
+  .cell .n {
+    display: block;
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 27px;
+    letter-spacing: -.015em;
+    margin-bottom: 3px;
+  }
+  .cell .c {
+    font-family: var(--mono);
+    font-size: 14px;
+    letter-spacing: .09em;
+    text-transform: uppercase;
+    color: var(--faint);
+  }
+</style>
+</head>
+<body>
+  <div class="card">
+    <div class="bar">
+      <span class="l">Senior Software Engineer</span>
+      <span>www.israeldryer.com</span>
+    </div>
+
+    <div class="main">
+      <h1>Israel Dryer</h1>
+      <p class="thesis">I design frameworks other developers build on.</p>
+    </div>
+
+    <div class="strip">
+      <div class="cell"><span class="n">ttkbootstrap</span><span class="c">4.2M downloads</span></div>
+      <div class="cell"><span class="n">bootstack</span><span class="c">60+ widgets on Tk</span></div>
+      <div class="cell"><span class="n">tkinter-icons</span><span class="c">61,000+ icons</span></div>
+    </div>
+  </div>
+</body>
+</html>
