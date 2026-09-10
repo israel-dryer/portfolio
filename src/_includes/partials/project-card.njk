@@ -1,0 +1,25 @@
+{# Expects `card`. Used for every project that does not get a case study. #}
+{% import "macros.njk" as m %}
+<article class="panel">
+  {{ m.panelBar(card.name, card.href, card.right) }}
+  <div class="panel-body">
+    {%- for fig in card.figures %}
+    {% figure fig %}
+    {%- endfor %}
+
+    {%- for p in card.body %}
+    <p>{{ p | safe }}</p>
+    {%- endfor %}
+
+    {%- if card.grid %}
+    <div class="shot-grid {{ card.gridClass or 'two' }}">
+      {%- for fig in card.grid %}
+      {% figure fig %}
+      {%- endfor %}
+    </div>
+    {%- endif %}
+
+    {{ m.tags(card.tags) }}
+  </div>
+  {{ m.stats(card.stats) }}
+</article>

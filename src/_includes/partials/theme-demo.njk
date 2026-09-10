@@ -1,0 +1,12 @@
+{# Live bootstyle preview. Palettes live in assets/js/main.js. #}
+<div class="themebar" role="group" aria-label="Preview theme">
+  {%- for t in themes %}
+  <button class="themebtn" type="button" data-theme-name="{{ t }}" aria-pressed="{{ 'true' if loop.first else 'false' }}">{{ t }}</button>
+  {%- endfor %}
+</div>
+<div class="roles">
+  {%- for role in ["primary", "success", "info", "warning", "danger"] %}
+  <span class="chip" data-role="{{ role }}">{{ role }}</span>
+  {%- endfor %}
+</div>
+<div class="bar-demo"><i></i></div>

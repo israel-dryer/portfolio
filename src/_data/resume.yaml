@@ -1,0 +1,99 @@
+# Everything the resume needs that the homepage does not carry.
+# Employment history lives in work.yaml and is shared between both pages.
+
+title: Résumé
+pdf: /israel-dryer-resume.pdf     # see `npm run pdf`
+
+summary: >-
+  Senior software engineer with 10+ years across Python, TypeScript, and SQL. I design
+  frameworks other developers build on — three of them in Python's desktop ecosystem,
+  including ttkbootstrap (4.2M downloads, 2.6k stars, five years of continuous
+  maintenance). At LogistiVIEW I identify platform gaps, propose solutions, and build
+  them, architecting shared capabilities with the configurability that reduces work for
+  every team downstream. The recurring problem across all of it is API design: plenty of
+  interfaces work correctly, and I care that they are also organized, discoverable, and
+  pleasant to read. Most useful where the right answer isn't obvious yet and someone has
+  to weigh tradeoffs across the whole system before committing.
+
+openSource:
+  label: Open Source
+  items:
+    - name: ttkbootstrap
+      link: { label: ttkbootstrap.org, href: https://www.ttkbootstrap.org }
+      meta: Creator &amp; maintainer — 4.2M downloads, ~145k/month, 2.6k stars
+      dates: 2021 – Present
+      text: >-
+        A theming and design-system layer for Python's tkinter. Thirty curated light and
+        dark themes generated on demand at runtime, a single bootstyle keyword that styles
+        any widget by intent rather than by hand-tuned colors, built-in font-rendered
+        icons, and a declarative Theme() API for custom design systems. Pure Python, one
+        dependency.
+    - name: bootstack
+      link: { label: bootstack.org, href: https://bootstack.org }
+      meta: Creator &amp; maintainer
+      dates: 2026 – Present
+      text: >-
+        A Python desktop application framework built on Tk. Declarative context-manager
+        layout where the code hierarchy is the UI hierarchy, 60+ widgets from primitives
+        through DataTable, Tree, Calendar and a full CodeEditor, reactive signals for state
+        that flows between widgets, an event stream API with composable filtering, debounce
+        and throttle, hot reload that keeps your place across saves, and a CLI that
+        scaffolds, runs, and packages to a standalone executable.
+    - name: tkinter-icons
+      link: { label: tkinter-icons.readthedocs.io, href: https://tkinter-icons.readthedocs.io }
+      meta: Creator &amp; maintainer
+      dates: 2025 – Present
+      text: >-
+        A font-based icon system for tkinter: 61,000+ icons across sixteen families —
+        Material, Font Awesome, Lucide, Bootstrap, Simple Icons and others — behind one
+        uniform API, packaged as eighteen distributions that install as extras so the
+        distribution names never surface. No image assets to manage.
+
+projects:
+  label: Selected Projects
+  items:
+    - name: Mediq
+      link: { label: github.com/israel-dryer/mediq, href: https://github.com/israel-dryer/mediq }
+      meta: PostgreSQL (PL/pgSQL), Python, Docker
+      text: >-
+        The scheduling core of a medical practice, built as a Postgres project. Provider
+        time — appointments, holds, time off, admin blocks — is one table carrying a gist
+        exclusion constraint over (provider_id, tstzrange), so two overlapping live claims
+        cannot both exist and double-booking is structurally impossible rather than merely
+        unlikely. Cancellation is a release rather than a delete, and an ASAP waitlist fills
+        the freed slot with holds that lapse on their own.
+
+  # Kept to one line — these are portfolio material, not resume material, but the
+  # stacks are worth stating. Delete `also:` and restore full entries above if you
+  # ever want them expanded.
+  also: >-
+    Also <strong>Catan Dice</strong> (Angular, Ionic, Firebase, Dexie) at
+    catandice.tallypad.net and <strong>Adventures In Faith</strong> (React 18, Chakra)
+    at books.klepel.org — both installable PWAs with offline-capable local persistence.
+
+skills:
+  label: Technology &amp; Skills
+  rows:
+    - term: Languages
+      text: Python · TypeScript · JavaScript · SQL · C# · Groovy
+    - term: Frameworks
+      text: Angular · React · Ionic · Tk/tkinter
+    - term: Data
+      text: PostgreSQL · PL/pgSQL · Data modeling · Reporting &amp; analytics
+    - term: Tools
+      text: Docker · Git · Linux · Firebase
+    - term: Practices
+      text: API &amp; framework design · Systems design · Full-stack delivery
+
+education:
+  label: Education &amp; Certifications
+  rows:
+    - left: M.S. Accounting
+      right: Lynchburg, VA — 2010
+    - left: B.S. Interdisciplinary Studies
+      right: Minneapolis, MN — 2006
+    - left: "CPA License #12612"
+      right: Kentucky — 2013 – 2017
+    - left: Adjunct Faculty, Indiana Wesleyan University
+      right: Louisville, KY — 2011 – 2016
+      note: Accounting

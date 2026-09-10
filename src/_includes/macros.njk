@@ -1,0 +1,63 @@
+{# ---------------------------------------------------------------------------
+   Sync-only macros. Nunjucks macros cannot await, so anything that calls the
+   {% figure %} async shortcode has to live in an {% include %} partial instead.
+   --------------------------------------------------------------------------- #}
+
+{% macro sectionLabel(text) %}
+<h2 class="sec-label">{{ text | safe }}</h2>
+{%- endmacro %}
+
+{% macro panelBar(name, href, right) %}
+<div class="panel-bar">
+  <span class="name">{% if href %}<a href="{{ href }}">{{ name | safe }}</a>{% else %}{{ name | safe }}{% endif %}</span>
+  {%- if right %}<span class="right">{{ right | safe }}</span>{% endif %}
+</div>
+{%- endmacro %}
+
+{% macro tags(list) %}
+{%- if list and list.length %}
+<div class="tags">
+  {%- for t in list %}<span class="tag">{{ t }}</span>{% endfor %}
+</div>
+{%- endif %}
+{%- endmacro %}
+
+{% macro stats(list) %}
+{%- if list and list.length %}
+<div class="stats">
+  {%- for s in list %}
+  <div class="stat"><span class="num">{{ s.n }}</span><span class="cap">{{ s.cap }}</span></div>
+  {%- endfor %}
+</div>
+{%- endif %}
+{%- endmacro %}
+
+{% macro caseStudy(rows) %}
+{%- if rows and rows.length %}
+<div class="case">
+  <dl>
+    {%- for row in rows %}
+    <dt>{{ row.term }}</dt>
+    <dd>{{ row.text | safe }}</dd>
+    {%- endfor %}
+  </dl>
+</div>
+{%- endif %}
+{%- endmacro %}
+
+{% macro tenure(roles) %}
+{%- if roles and roles.length %}
+<div class="tenure">
+  <div class="tenure-label">Roles</div>
+  {%- for r in roles %}
+  <div class="role-row"><span class="t">{{ r.title | safe }}</span><span class="d">{{ r.dates }}</span></div>
+  {%- endfor %}
+</div>
+{%- endif %}
+{%- endmacro %}
+
+{% macro contactRail(list, tag) %}
+{%- for c in list %}
+<span>{% if c.href %}<a href="{{ c.href }}">{{ c.label }}</a>{% else %}{{ c.label }}{% endif %}</span>
+{%- endfor %}
+{%- endmacro %}

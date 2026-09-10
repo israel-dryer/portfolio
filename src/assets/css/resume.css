@@ -1,0 +1,224 @@
+/* --------------------------------------------------------------------------
+   Résumé page. Loaded only on /resume/, on top of style.css.
+   The @media print block at the bottom is what produces the PDF — both the
+   browser's "Save as PDF" and `npm run pdf` render through it.
+   -------------------------------------------------------------------------- */
+
+.resume { max-width: 820px; }
+
+/* ---- sections ------------------------------------------------------------
+   One spacing scale, declared once. Every gap below comes from these four
+   values — margins are never stacked against each other, which is what made
+   the rhythm differ from section to section.
+
+     section    28px   between one section and the next
+     label      14px   section heading to its first row
+     entry      18px   between projects, or between employers
+     row         7px   between rows inside a block (skills, education, roles)
+   -------------------------------------------------------------------------- */
+
+:root {
+  --s-section: 40px; --s-label: 16px; --s-entry: 18px; --s-row: 7px;
+
+  /* ONE type scale. Every size below is a ratio of --t-base, so print changes the
+     base only and every step between levels holds. Setting screen sizes in px and
+     print sizes in pt independently is what made the hierarchy differ between the
+     two — the levels were re-picked rather than rescaled. */
+  --t-base: 16.5px;
+  --t-sec:  calc(var(--t-base) * 0.67);   /* section heading   */
+  --t-org:  calc(var(--t-base) * 1.12);   /* employer          */
+  --t-item: calc(var(--t-base) * 0.97);   /* project / library */
+  --t-sub:  calc(var(--t-base) * 0.88);   /* sub line          */
+  --t-role: calc(var(--t-base) * 0.86);   /* role, skill label */
+  --t-meta: calc(var(--t-base) * 0.70);   /* mono dates, links */
+}
+
+.r-sec { padding-block: var(--s-section) 0; }
+.r-sec > .sec-label::after { display: none; }
+.r-sec > .sec-label { font-size: var(--t-sec); }
+.r-sec > .sec-label {
+  margin-bottom: var(--s-label);
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--line);
+}
+.r-sec > p { margin: 0; }
+
+/* every direct child after the first sits one entry-gap below the last */
+.r-sec > * + *:not(.sec-label) { margin-top: var(--s-entry); }
+.r-sec > .entry-sub + .entry-sub { margin-top: var(--s-row); }
+.r-sec > .kv + .kv { margin-top: var(--s-row); }
+
+.entry { margin: 0; }
+.entry p { margin: 5px 0 0; }
+.entry p.lede { color: var(--muted); font-style: italic; margin-top: 4px; }
+
+.entry-hd,
+.entry-sub {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 14px;
+  flex-wrap: nowrap;
+}
+.entry-sub > span:first-child { min-width: 0; }
+@media (max-width: 520px) { .entry-hd, .entry-sub { flex-wrap: wrap; } }
+
+.entry-hd { margin-top: 0; }
+.entry-hd .t {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--t-item);
+  letter-spacing: -.01em;
+}
+
+/* An employer heads a group of roles, so it has to outrank them clearly:
+   bigger, in the display face, and closed by a rule. The role titles below it
+   are body-face and a size down — same-weight headings a size apart read as
+   siblings, which is the bug this fixes. */
+.employer .entry-hd {
+  padding-bottom: 5px;
+  border-bottom: 1px solid var(--hairline);
+}
+.employer .entry-hd .t { font-size: var(--t-org); }
+
+.entry-sub { margin-top: 2px; font-size: var(--t-sub); color: var(--muted); }
+.entry-sub .rt {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--t-role);
+  color: var(--ink);
+}
+.note { color: var(--faint); font-style: italic; }
+
+.entry-sub .d,
+.entry-hd .d {
+  font-family: var(--font-mono);
+  font-size: var(--t-meta);
+  color: var(--faint);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.entry-hd .d a { color: var(--accent); text-decoration: none; }
+.entry-hd .d a:hover { text-decoration: underline; }
+
+/* a role inside an employer sits closer than two employers do */
+.employer .role-sub { margin-top: 13px; }
+.employer .role-sub:first-of-type { margin-top: 6px; }
+
+.resume ul { margin: 5px 0 0; padding-left: 17px; }
+.resume li { margin-bottom: 4px; }
+.resume li:last-child { margin-bottom: 0; }
+.resume li::marker { color: var(--faint); }
+
+/* ---- skills ---- */
+
+.kv { display: flex; gap: 16px; align-items: baseline; flex-wrap: wrap; margin: 0; }
+.kv .k {
+  font-family: var(--font-body);
+  font-size: var(--t-role);
+  font-weight: 600;
+  color: var(--muted);
+  flex: 0 0 104px;
+}
+.kv .v { flex: 1 1 260px; }
+
+.also { margin: 0; color: var(--muted); font-size: var(--t-sub); }
+.also strong { color: var(--ink); font-weight: 600; }
+
+/* --------------------------------------------------------------------------
+   PRINT
+   Letter, 0.55in margins, black on white regardless of the viewer's theme.
+   -------------------------------------------------------------------------- */
+
+@media print {
+  @page { size: Letter; margin: 0.55in; }
+
+  :root {
+    --ground: #fff; --surface: #fff; --sunken: #fff;
+    --ink: #000; --muted: #333; --faint: #555;
+    --line: #999; --hairline: #bbb; --accent: #000; --accent-2: #000;
+  }
+
+  html, body { background: #fff !important; color: #000 !important; }
+
+  .no-print { display: none !important; }
+
+  .wrap, .resume {
+    max-width: none;
+    width: 100%;
+    padding: 0 !important;
+    margin: 0;
+  }
+
+  body { font-size: var(--t-base); line-height: 1.31; }
+
+  .masthead {
+    padding-block: 0 8pt;
+    gap: 5pt;
+    border-bottom: 0.5pt solid #999;
+  }
+  /* the screen h1 is a fluid clamp, which is meaningless at a fixed page
+     width — so print derives the masthead from the same base instead. */
+  .role { font-size: calc(var(--t-base) * 0.80); margin-bottom: -3pt; }
+  h1 { font-size: calc(var(--t-base) * 2.1); }
+  .meta { font-size: calc(var(--t-base) * 0.85); gap: 2pt 7pt; }
+  .meta a { color: #000; }
+
+  :root {
+    --s-section: 12pt; --s-label: 5pt; --s-entry: 6pt; --s-row: 2.5pt;
+    --t-base: 9.2pt;   /* the only size print sets — the scale does the rest */
+  }
+  .r-sec { padding-block: var(--s-section) 0; break-inside: auto; }
+
+  .sec-label {
+    padding-bottom: 3pt;
+    border-bottom: 0.5pt solid #999;
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  /* A heading stays with what it introduces. But `break-after: avoid` on a long
+     RUN of siblings makes the whole run unbreakable, which shunts entire sections
+     onto the next page — so only true headings get it. */
+  .entry-hd {
+    break-after: avoid;
+    page-break-after: avoid;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  .entry-sub, .kv {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  .role-sub {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+  .employer .role-sub { margin-top: 6pt; }
+  .employer .role-sub:first-of-type { margin-top: 2.5pt; }
+  .kv .k { flex-basis: 76pt; }
+  .employer .entry-hd { padding-bottom: 2.5pt; border-bottom: 0.5pt solid #bbb; }
+
+  .entry { break-inside: auto; }
+
+  /* An employer heading plus its first role and first bullets must travel
+     together, or a page ends on a lone truncated item. */
+  .employer > .entry-hd,
+  .employer > .role-sub,
+  .employer > .lede { break-after: avoid; page-break-after: avoid; }
+  .employer > ul { orphans: 2; widows: 2; }
+  .resume ul { orphans: 2; widows: 2; }
+  .entry p { margin-top: 3pt; }
+
+  .resume li {
+    margin-bottom: 1.5pt;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  /* links print as text, not as blue underlines */
+  a { color: #000 !important; text-decoration: none !important; }
+
+  /* nothing on this page should paint a panel */
+  .panel, .stats, .tags { border: 0; background: none; box-shadow: none; }
+}

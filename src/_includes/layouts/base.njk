@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="{{ site.lang }}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ title or site.title }}</title>
+<meta name="description" content="{{ site.description }}">
+{% if noindex %}<meta name="robots" content="noindex, nofollow">{% endif %}
+<meta name="author" content="{{ profile.name }}">
+<link rel="canonical" href="{{ site.url }}/">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{ site.ogTitle }}">
+<meta property="og:description" content="{{ site.ogDescription }}">
+<meta property="og:url" content="{{ site.url }}/">
+<meta property="og:image" content="{{ site.url }}{{ site.ogImage }}">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2218%22 fill=%22%2323458F%22/><text y=%2274%22 x=%2250%22 text-anchor=%22middle%22 font-size=%2262%22 font-family=%22Helvetica,Arial%22 font-weight=%22bold%22 fill=%22white%22>ID</text></svg>">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="/assets/css/style.css">
+{% if extraCss %}<link rel="stylesheet" href="{{ extraCss }}">{% endif %}
+</head>
+<body>
+{{ content | safe }}
+<script src="/assets/js/main.js" defer></script>
+</body>
+</html>

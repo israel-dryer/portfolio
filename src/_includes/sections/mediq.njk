@@ -1,0 +1,38 @@
+{% import "macros.njk" as m %}
+{% set p = projects.featured.mediq %}
+<section>
+  {{ m.sectionLabel(p.heading) }}
+  <div class="panel">
+    {{ m.panelBar(p.bar.name, p.bar.href, p.bar.right) }}
+    <div class="panel-body">
+      {%- for para in p.body %}
+      <p>{{ para | safe }}</p>
+      {%- endfor %}
+
+      {{ m.caseStudy(p.case) }}
+
+      <div style="margin-top:20px">
+        <p class="code-label">The constraint <span style="text-transform:none;letter-spacing:0;font-weight:400">— <code>migrations/0003_occupancy.sql</code>, trimmed</span></p>
+<pre><span class="k">CREATE TYPE</span> claim_kind <span class="k">AS ENUM</span> (<span class="s">'appointment'</span>, <span class="s">'hold'</span>, <span class="s">'time_off'</span>, <span class="s">'admin'</span>);
+
+<span class="k">CREATE TABLE</span> time_claim (
+  id           uuid <span class="k">PRIMARY KEY DEFAULT</span> uuidv7(),
+  provider_id  uuid <span class="k">NOT NULL REFERENCES</span> provider(id),
+  during       tstzrange <span class="k">NOT NULL</span>,
+  kind         claim_kind <span class="k">NOT NULL</span>,
+  expires_at   timestamptz,  <span class="c">-- holds only: NULL = never lapses</span>
+  released_at  timestamptz,  <span class="c">-- set on cancel; the row stays</span>
+
+  <span class="c">-- two live claims on one provider cannot overlap.</span>
+  <span class="c">-- not a check the app runs. a fact about the table.</span>
+  <span class="k">CONSTRAINT</span> no_overlap <span class="k">EXCLUDE USING</span> gist (
+    provider_id <span class="k">WITH</span> =,
+    during      <span class="k">WITH</span> &amp;&amp;
+  ) <span class="k">WHERE</span> (released_at <span class="k">IS NULL</span>)
+);</pre>
+      </div>
+
+      <p style="margin-top:16px">{{ p.closing | safe }}</p>
+    </div>
+  </div>
+</section>

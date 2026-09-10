@@ -1,0 +1,9 @@
+node_modules/
+_site/
+.cache/
+src/images/*
+!src/images/.gitkeep
+!src/images/books-*.png
+.DS_Store
+development
+.idea

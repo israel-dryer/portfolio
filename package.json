@@ -1,0 +1,20 @@
+{
+  "name": "israel-dryer-portfolio",
+  "version": "1.0.0",
+  "description": "Personal site \u2014 frameworks, projects, work.",
+  "license": "UNLICENSED",
+  "private": true,
+  "scripts": {
+    "start": "eleventy --serve",
+    "build": "eleventy",
+    "clean": "rm -rf _site",
+    "images": "node fetch-images.js",
+    "pdf": "node scripts/pdf.js",
+    "og": "node scripts/og-image.js"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^3.1.6",
+    "@11ty/eleventy-img": "^6.0.4",
+    "js-yaml": "^4.1.0"
+  }
+}

@@ -1,0 +1,260 @@
+# ---------------------------------------------------------------------------
+# Two kinds of entry:
+#   featured/*  get their own section and a Problem/Constraint/Decision/Tradeoff
+#               case study. Rendered by _includes/sections/<id>.njk.
+#   also, web   are cards rendered by the shared project-card partial.
+#
+# figures: `base` resolves to <base>-light.<ext> and <base>-dark.<ext> in
+# src/images/. Until those files exist the `remote` URLs are used instead, so
+# the site builds before you have run `npm run images`.
+# ---------------------------------------------------------------------------
+
+featured:
+  ttkbootstrap:
+    heading: ttkbootstrap
+    bar:
+      name: ttkbootstrap.org
+      href: https://www.ttkbootstrap.org
+      right: 2021 — present · creator &amp; maintainer
+
+    hero:
+      base: ttkbootstrap-home-hero
+      eager: true
+      alt: >-
+        ttkbootstrap widget showcase: color swatches, themed buttons, inputs,
+        meter, data table and notebook
+      caption: >-
+        The widget set under one theme. Every control here is stock ttk — the
+        styling comes from the theme, not from per-widget color work.
+      remote:
+        light: https://www.ttkbootstrap.org/en/latest/_images/home-hero-light.png
+        dark: https://www.ttkbootstrap.org/en/latest/_images/home-hero-dark.png
+
+    body:
+      - >-
+        A theming and design-system layer for Python's tkinter. Thirty curated
+        light and dark themes that switch at runtime, a single <code>bootstyle</code>
+        keyword that styles any widget by intent, 2,000+ icons rendered from a font
+        rather than shipped as image assets, and a declarative <code>Theme()</code>
+        API for building a custom design system. Pure Python, one dependency.
+
+    case:
+      - term: Problem
+        text: >-
+          Existing ttk themes are static, must be loaded at runtime to be available,
+          and do not allow for much customization. Additionally, customization 
+          itself is painful, with dot-separated names like <code>primary.Striped.Horizontal.TProgressbar</code>. 
+          The segments are order-dependent, largely undocumented, and — the real cost — a wrong one
+          fails <em>silently</em>. You get an unstyled widget and no error, so the
+          feedback loop is guesswork. Tkinter does not ship with icons. You must use
+          png images, which is a packaging nightmare.
+      - term: Constraint
+        text: >-
+          I couldn't change ttk. Whatever I built had to sit on top of the existing
+          style engine, keep working with plain tkinter code already in the wild,
+          and stay pure Python with one dependency so it installs anywhere Python does.
+      - term: Decision
+        text: >-
+          All themes were generated on-demand at runtime through a theme
+          definition. This maximizes memory while providing maximum flexibility on
+          theme availability and customization.  Image-based widgets greatly enhanced
+          the look and feel, and packaged assets were inconsequential through a
+          method of color replacement - black, white, magenta color were replaced
+          on-demand to provide any color combination with a single asset.
+          Instead of long dot styles, the open-ended string with a <em>closed grammar</em>.
+          <code>bootstyle</code> accepts a fixed keyword vocabulary in any order,
+          resolves it to the underlying ttk style name, and raises on anything it
+          doesn't recognize. Colors come from whichever theme is loaded rather than
+          from literals at the call site, which is what makes runtime theme switching
+          possible at all. Finally, icons are built-in and were added through a
+          created technique I deployed on the `tkinter-icons` project by creating
+          on-demand images through a bootstrap font icon. This gives you access to 
+          thousands of customizable icons.
+      - term: Tradeoff
+        text: >-
+          A closed grammar means the library has to know every valid combination, so
+          supporting a new widget is library work rather than something a user can
+          improvise. And validating loudly is a behavior change from tkinter's silent
+          tolerance — worth it, but it's a real break with what the platform does by default.
+
+    closing: >-
+      The same keyword vocabulary styles every widget in the library. Change the
+      theme at runtime and all of them follow:
+
+    tail:
+      base: ttkbootstrap-tableview-hero
+      alt: "ttkbootstrap Tableview: a themed data table with search and pagination"
+      caption: >-
+        Tableview — search, sort and pagination, themed by the same keyword
+        vocabulary as everything else.
+      remote:
+        light: https://www.ttkbootstrap.org/en/latest/_images/tableview-hero-light.png
+        dark: https://www.ttkbootstrap.org/en/latest/_images/tableview-hero-dark.png
+
+    stats:
+      - { n: 4.2M, cap: downloads }
+      - { n: 145k, cap: per month }
+      - { n: 2.6k, cap: stars }
+      - { n: "30", cap: themes }
+      - { n: 5 yrs, cap: maintained }
+
+  mediq:
+    heading: Mediq
+    bar:
+      name: github.com/israel-dryer/mediq
+      href: https://github.com/israel-dryer/mediq
+      right: PostgreSQL · Python · Docker
+
+    body:
+      - >-
+        The scheduling core of a medical practice, built as a Postgres project: what
+        does it take to make double-booking structurally impossible rather than merely
+        unlikely?
+
+    case:
+      - term: Problem
+        text: >-
+          Double-booking is a race condition. Check-then-insert reads an open slot,
+          finds it free, and writes — and so does the session running the same three
+          steps a millisecond later. Retrying around it moves the race rather than
+          removing it.
+      - term: Constraint
+        text: >-
+          I wanted the rule to hold for every writer, not just the ones that go through
+          a booking service — a backfill script, a seed, a psql session. That rules out
+          enforcement in application code.
+      - term: Decision
+        text: >-
+          Push the invariant into Postgres. Provider time — appointments, holds, time
+          off, admin blocks — is one table with a tstzrange and a gist exclusion
+          constraint, so two overlapping live claims on the same provider cannot both
+          exist. There is no patient on that table: an appointment points at a claim
+          rather than carrying its own times, so one constraint covers every way a
+          calendar can be occupied, and a vacation block prevents double-booking for
+          free. The losing write fails at insert time; the booking function turns that
+          failure into a named <code>slot_taken</code> error.
+      - term: Tradeoff
+        text: >-
+          Callers have to treat a constraint violation as an expected outcome rather
+          than a bug, and the scheduling rules live in migrations instead of in code a
+          developer reads first. In exchange the invariant is a property of the data,
+          not of the paths that happen to reach it.
+
+    closing: >-
+      Cancellation is a release, not a delete. Appointment status changes cascade into
+      <code>released_at</code> through a trigger — canceled and bumped free the time,
+      a no-show deliberately does not — and the row stays, so the history survives. The
+      same table carries time-limited holds, which is the groundwork for an ASAP
+      waitlist: a released slot is held for one patient at a time, and a hold that
+      nobody takes lapses on its own rather than needing a sweeper to be running.
+
+# --------------------------------------------------------------------------
+
+alsoLabel: Also maintaining
+also:
+  - name: bootstack
+    href: https://bootstack.org
+    right: 2026 — present
+    figures:
+      - base: bootstack-home-hero
+        alt: >-
+          A bootstack analytics dashboard: charts, metrics and a data table in a
+          desktop window
+        caption: A dashboard built with bootstack. Desktop Python, no web view.
+        remote:
+          light: https://bootstack.org/_images/home-hero-light.png
+          dark: https://bootstack.org/_images/home-hero-dark.png
+    body:
+      - >-
+        A full application framework on Tk, and the largest of the three. Declarative
+        context-manager layout where the code hierarchy <em>is</em> the UI hierarchy;
+        reactive signals for state that flows between widgets; an event stream API with
+        composable filtering, debounce and throttle; hot reload that keeps your place
+        across saves; and a CLI that scaffolds a project, runs it, and packages it to a
+        standalone executable.
+    grid:
+      - base: bootstack-workbench-hero
+        alt: "bootstack workbench layout: navigation rail, sidebar and content area"
+        caption: Workbench — rail, sidebar, content.
+        sizes: "(min-width: 700px) 410px, 100vw"
+        remote:
+          light: https://bootstack.org/_images/workbench-hero-light.png
+          dark: https://bootstack.org/_images/workbench-hero-dark.png
+      - base: bootstack-datatable-hero
+        alt: bootstack DataTable with column chooser, filtering and grouping
+        caption: DataTable — filter, group, edit, export.
+        sizes: "(min-width: 700px) 410px, 100vw"
+        remote:
+          light: https://bootstack.org/_images/datatable-hero-light.png
+          dark: https://bootstack.org/_images/datatable-hero-dark.png
+    tags: [Python, Reactive state, CLI tooling, Packaging]
+    stats:
+      - { n: 60+, cap: widgets }
+      - { n: Signals, cap: reactive state }
+      - { n: Hot reload, cap: keeps your place }
+
+  - name: tkinter-icons
+    href: https://tkinter-icons.readthedocs.io
+    right: 2025 — present
+    figures:
+      - base: tkinter-icons-hero
+        alt: Icon glyphs from sixteen icon packs rendered by tkinter-icons
+        caption: Sixteen icon families, one API, no image files on disk.
+        remote:
+          light: https://tkinter-icons.readthedocs.io/en/latest/_images/hero-light.png
+          dark: https://tkinter-icons.readthedocs.io/en/latest/_images/hero-dark.png
+    body:
+      - >-
+        A font-based icon system for tkinter — Material, Font Awesome, Lucide,
+        Bootstrap, Simple Icons and eleven more behind one uniform API. Shipped as
+        eighteen distributions that install as extras, so you pick the families you
+        want and the distribution names never surface in your code.
+    tags: [Python, Packaging, Font rendering]
+    stats:
+      - { n: "61,000+", cap: icons }
+      - { n: "16", cap: families }
+      - { n: "18", cap: distributions }
+
+# --------------------------------------------------------------------------
+
+webLabel: On the web
+web:
+  - name: Catan Dice
+    href: https://www.catandice.tallypad.net
+    right: Angular · Ionic · Firebase · Dexie
+    figures:
+      - file: catan-hero-images.webp
+        alt: "Catan Dice running on a phone: dice roll screen and roll history"
+        caption: Rolling and roll history. Installs to the home screen and runs offline.
+        remote:
+          light: https://raw.githubusercontent.com/israel-dryer/catan-dice/main/screenshots/hero-images.webp
+    body:
+      - >-
+        A companion PWA for the Catan board game: Firebase for authentication and
+        remote storage, Dexie and IndexedDB for local persistence so it keeps working
+        offline.
+        <a href="https://github.com/israel-dryer/catan-dice">Source</a>.
+
+  - name: Adventures in Faith
+    href: https://books.klepel.org
+    right: React 18 · Chakra
+    grid:
+      - file: books-reader.png
+        alt: >-
+          Adventures in Faith on desktop: page-thumbnail sidebar on the left, chapter
+          text on the right, page 9 of 165
+        caption: Desktop — page thumbnails and bookmarks alongside the text.
+        sizes: "(min-width: 620px) 520px, 100vw"
+      - file: books-mobile.png
+        alt: >-
+          Adventures in Faith on a phone: continuous scrolling chapter text with a
+          bookmark marker, page 18 of 165
+        caption: The same book on a phone — one column, position kept.
+        sizes: "(min-width: 620px) 290px, 100vw"
+    gridClass: pair
+    body:
+      - >-
+        A fast, installable book reader for the memoirs of Duane H. Klepel and related
+        works. One layout that reflows from a two-pane desktop view to a single phone
+        column, with bookmarks and reading position carried across all 165 pages.
+        <a href="https://github.com/israel-dryer/adventures-in-faith">Source</a>.

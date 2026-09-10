@@ -1,0 +1,47 @@
+name: Israel Dryer
+role: Senior Software Engineer
+
+# The masthead rail, and the footer rail. Same list, rendered twice.
+# Order is deliberate: what a reader acts on first, context last.
+contact:
+  - label: hello@israeldryer.com
+    href: mailto:hello@israeldryer.com
+  - label: github.com/israel-dryer
+    href: https://github.com/israel-dryer
+  - label: (704) 379-2454       # delete this entry to keep the number off a public page
+  - label: Charlotte, North Carolina
+
+# Opens the page. Set larger than body text.
+thesis: I design frameworks other developers build on.
+
+intro:
+  - >-
+    Three of these frameworks live in Python's desktop ecosystem: a theming and 
+    design-system layer, an icon system, and a full application framework on Tk. My 
+    day job is platform work within a supply-chain product, where the same instinct applies:
+    build a cohesive solution and configuration framework that enables and expedites
+    solution implementation. The connecting factor in all of these is API design.
+  - >-
+    Plenty of developers are satisfied with an API that works correctly; this is expected. 
+    But for me, it should also feel good to use — organized, discoverable,
+    documented, easy to read. That is the difference between an API that is usable
+    and one that is productive and pleasant to use. I spent most of my career as a
+    consumer of productivity applications. The end user experience is always at the 
+    forefront of my mind when designing an API.
+
+background:
+  label: Before software
+  paragraphs:
+    - >-
+      I came into engineering from finance and data analysis: five years
+      of budgeting, forecasting and pricing work at Time Warner Cable and Grant
+      Thornton, a CPA license, an M.S. in Accounting, and five years teaching
+      graduate and undergraduate accounting courses as adjunct faculty at Indiana
+      Wesleyan University.
+    - >-
+      My experience in various fields and domains has proven to be a practical 
+      advantage as I can more easily connect the product and design goals to the
+      needs of the customer and end user. Hard problems are often operational and 
+      data-shaped rather than purely technical. I'm most useful where the right 
+      answer isn't obvious yet and someone has to weigh tradeoffs across the whole 
+      system before committing.

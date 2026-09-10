@@ -1,0 +1,116 @@
+---
+layout: layouts/base.njk
+title: Israel Dryer — Résumé
+permalink: /resume/
+noindex: true
+extraCss: /assets/css/resume.css
+---
+{% import "macros.njk" as m %}
+
+<div class="wrap resume">
+
+  <header class="masthead">
+    <div class="role">{{ profile.role }}</div>
+    <h1>{{ profile.name }}</h1>
+    <div class="meta">
+      {{ m.contactRail(profile.contact) }}
+    </div>
+    <div class="actions no-print">
+      <a class="btn" href="{{ resume.pdf }}" download>Download PDF</a>
+      <button class="btn ghost" type="button" id="printBtn">Print</button>
+      <a class="btn ghost" href="/">Portfolio</a>
+    </div>
+  </header>
+
+  <section class="r-sec">
+    <h2 class="sec-label">Summary</h2>
+    <p>{{ resume.summary | safe }}</p>
+  </section>
+
+
+
+
+  <section class="r-sec">
+    <h2 class="sec-label">Experience</h2>
+    {%- for e in work.employers %}
+    <div class="entry employer">
+      <div class="entry-hd">
+        <span class="t">{{ e.name }}</span>
+        <span class="d">{{ e.location }}</span>
+      </div>
+      {%- for r in e.roles %}
+      <div class="entry-sub role-sub">
+        <span class="rt">{{ r.title | safe }}</span>
+        <span class="d">{{ r.dates }}</span>
+      </div>
+      {%- if r.lede %}<p class="lede">{{ r.lede | safe }}</p>{% endif %}
+      {%- if r.bullets %}
+      <ul>
+        {%- for b in r.bullets %}
+        <li>{{ b | safe }}</li>
+        {%- endfor %}
+      </ul>
+      {%- endif %}
+      {%- endfor %}
+    </div>
+    {%- endfor %}
+  </section>
+
+  <section class="r-sec">
+    <h2 class="sec-label">{{ resume.openSource.label | safe }}</h2>
+    {%- for it in resume.openSource.items %}
+    <div class="entry">
+      <div class="entry-hd">
+        <span class="t">{{ it.name }}</span>
+        <span class="d"><a href="{{ it.link.href }}">{{ it.link.label }}</a></span>
+      </div>
+      <div class="entry-sub">
+        <span>{{ it.meta | safe }}</span>
+        <span class="d">{{ it.dates }}</span>
+      </div>
+      <p>{{ it.text | safe }}</p>
+    </div>
+    {%- endfor %}
+  </section>
+
+  <section class="r-sec">
+    <h2 class="sec-label">{{ resume.projects.label | safe }}</h2>
+    {%- for it in resume.projects.items %}
+    <div class="entry">
+      <div class="entry-hd">
+        <span class="t">{{ it.name }}</span>
+        <span class="d"><a href="{{ it.link.href }}">{{ it.link.label }}</a></span>
+      </div>
+      <div class="entry-sub"><span>{{ it.meta | safe }}</span></div>
+      <p>{{ it.text | safe }}</p>
+    </div>
+    {%- endfor %}
+    {%- if resume.projects.also %}
+    <p class="also">{{ resume.projects.also | safe }}</p>
+    {%- endif %}
+  </section>
+
+  <section class="r-sec">
+    <h2 class="sec-label">{{ resume.skills.label | safe }}</h2>
+    {%- for row in resume.skills.rows %}
+    <div class="kv"><span class="k">{{ row.term }}</span><span class="v">{{ row.text | safe }}</span></div>
+    {%- endfor %}
+  </section>
+
+  <section class="r-sec">
+    <h2 class="sec-label">{{ resume.education.label | safe }}</h2>
+    {%- for row in resume.education.rows %}
+    <div class="entry-sub edu">
+      <span>{{ row.left | safe }}{% if row.note %} <em class="note">{{ row.note | safe }}</em>{% endif %}</span>
+      <span class="d">{{ row.right }}</span>
+    </div>
+    {%- endfor %}
+  </section>
+
+  <footer class="no-print">{{ m.contactRail(profile.contact) }}</footer>
+
+</div>
+
+<script>
+  document.getElementById('printBtn').addEventListener('click', function () { window.print(); });
+</script>

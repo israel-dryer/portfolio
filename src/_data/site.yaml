@@ -1,0 +1,11 @@
+# Site-wide settings. Change `url` once and every absolute link follows.
+url: https://www.israeldryer.com
+title: Israel Dryer
+ogTitle: Israel Dryer — Senior Software Engineer
+description: >-
+  Israel Dryer — senior software engineer. Creator of ttkbootstrap, bootstack,
+  and tkinter-icons. Platform engineering, API design, and full-stack delivery.
+ogDescription: >-
+  I design frameworks other developers build on. ttkbootstrap, bootstack, tkinter-icons.
+ogImage: /og-image.png
+lang: en

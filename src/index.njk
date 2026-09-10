@@ -1,0 +1,75 @@
+---
+layout: layouts/base.njk
+title: Israel Dryer
+---
+{% import "macros.njk" as m %}
+
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="role">{{ profile.role }}</div>
+    <h1>{{ profile.name }}</h1>
+    <div class="meta">{{ m.contactRail(profile.contact) }}</div>
+    <div class="actions">
+      <a class="btn" href="/resume/">Résumé</a>
+    </div>
+  </header>
+
+  <section>
+    <div class="prose">
+      <p class="lead">{{ profile.thesis }}</p>
+      {%- for para in profile.intro %}
+      <p>{{ para | safe }}</p>
+      {%- endfor %}
+    </div>
+  </section>
+
+  {% include "sections/ttkbootstrap.njk" %}
+  {% include "sections/mediq.njk" %}
+
+  <section>
+    {{ m.sectionLabel(projects.alsoLabel) }}
+    <div class="stack">
+      {%- for card in projects.also %}
+      {% include "partials/project-card.njk" %}
+      {%- endfor %}
+    </div>
+  </section>
+
+  <section>
+    {{ m.sectionLabel(projects.webLabel) }}
+    <div class="stack">
+      {%- for card in projects.web %}
+      {% include "partials/project-card.njk" %}
+      {%- endfor %}
+    </div>
+  </section>
+
+  <section>
+    {{ m.sectionLabel(work.label) }}
+    <div class="stack">
+      {%- for e in work.employers %}{% if e.home != false %}
+      <article class="panel">
+        {{ m.panelBar(e.name, null, e.location) }}
+        <div class="panel-body">
+          <p>{{ e.body | safe }}</p>
+          {{ m.tenure(e.roles) }}
+          {{ m.tags(e.tags) }}
+        </div>
+      </article>
+      {% endif %}{%- endfor %}
+    </div>
+  </section>
+
+  <section>
+    {{ m.sectionLabel(profile.background.label) }}
+    <div class="prose">
+      {%- for para in profile.background.paragraphs %}
+      <p>{{ para | safe }}</p>
+      {%- endfor %}
+    </div>
+  </section>
+
+  <footer>{{ m.contactRail(profile.contact) }}<span><a href="/resume/">Résumé</a></span></footer>
+
+</div>

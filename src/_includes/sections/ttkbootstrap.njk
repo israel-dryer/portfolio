@@ -1,0 +1,45 @@
+{% import "macros.njk" as m %}
+{% set p = projects.featured.ttkbootstrap %}
+<section>
+  {{ m.sectionLabel(p.heading) }}
+  <div class="panel">
+    {{ m.panelBar(p.bar.name, p.bar.href, p.bar.right) }}
+    <div class="panel-body">
+      {% figure p.hero %}
+
+      {%- for para in p.body %}
+      <p>{{ para | safe }}</p>
+      {%- endfor %}
+
+      {{ m.caseStudy(p.case) }}
+
+      <div style="margin-top:20px">
+        <div class="compare">
+          <div>
+            <h4>tkinter</h4>
+<pre><span class="c"># ordered, undocumented,</span>
+<span class="c"># silent when wrong</span>
+ttk.Progressbar(
+  style=<span class="s">"primary.Striped.Horizontal.TProgressbar"</span>
+)</pre>
+          </div>
+          <div>
+            <h4>ttkbootstrap</h4>
+<pre><span class="c"># any order, validated;</span>
+<span class="c"># a typo raises</span>
+ttk.Progressbar(
+  bootstyle=<span class="s">"primary striped"</span>
+)</pre>
+          </div>
+        </div>
+      </div>
+
+      <p style="margin-top:16px">{{ p.closing | safe }}</p>
+
+      {% include "partials/theme-demo.njk" %}
+
+      <div style="margin-top:20px">{% figure p.tail %}</div>
+    </div>
+    {{ m.stats(p.stats) }}
+  </div>
+</section>

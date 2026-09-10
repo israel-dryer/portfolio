@@ -1,0 +1,9 @@
+# Order of the buttons in the live bootstyle preview. The colour values for each
+# of these lives in src/assets/js/main.js — add a theme in both places.
+- flatly
+- litera
+- journal
+- superhero
+- darkly
+- cyborg
+- solar

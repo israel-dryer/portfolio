@@ -1,0 +1,108 @@
+label: Work
+
+# ONE employment history, rendered two ways.
+#   index.njk   uses `body` (prose) and skips entries marked `home: false`
+#   resume.njk  uses `bullets` under each role, and shows everything
+#
+# Prose first, then the role history. A paragraph placed under a list of roles
+# reads as a caption for the last one — this order avoids that.
+
+employers:
+  - name: LogistiVIEW
+    location: Charlotte, NC
+    body: >-
+      I find the gaps in the platform, propose what should fill them, and then build
+      it. Shared capabilities — Workflow Builder, Dataset Builder, Parameter Guidance,
+      configurable web forms — designed so implementation teams can adapt them without
+      pulling in engineering. Underneath that, the high-volume operational workflows
+      themselves, including a re-architecture of core task management for the
+      batch-driven operating model of a Fortune 100 retail enterprise.
+    tags: [Angular, TypeScript, Systems design, Client-facing]
+    roles:
+      - title: Senior Software Engineer
+        dates: Nov 2024 — present
+        lede: >-
+          Identify platform gaps, propose solutions, and implement them — working
+          directly with leadership to shape what gets built. Primarily Angular and
+          TypeScript.
+        bullets:
+          - >-
+            Re-architected core Task Management to support batch-driven operating models
+            for a Fortune 100 retail enterprise, then built the high-throughput
+            operational workflows that run on it.
+          - >-
+            Delivered and modernized shared platform capabilities — Workflow Builder,
+            Dataset Builder, Parameter Guidance, Knowledge Base, and Logging &amp;
+            Monitoring — designing each for configurability so implementation teams can
+            adapt them without pulling in engineering.
+          - >-
+            Defined the platform's approach to configurable web forms and drove adoption
+            of DevExtreme components, improving UI consistency and giving implementers a
+            faster path to building complex workflows.
+
+      - title: Platform Architect
+        dates: Oct 2021 — Nov 2024
+        bullets:
+          - >-
+            Introduced configurable web form templates that gave implementation teams
+            reusable patterns and materially shortened delivery timelines; the approach
+            became a core part of how implementations are built on the platform.
+          - >-
+            Led implementation of high-volume operational workflows for a Fortune 100
+            retail enterprise, and supported additional large-scale customers including a
+            Fortune 100 industrial distributor.
+          - >-
+            Formalized platform documentation and training, improving onboarding speed
+            and consistency across concurrent implementation efforts.
+          - >-
+            Served as the link between implementation teams, platform engineering, and
+            product management, bringing an implementer's perspective into roadmap and
+            feature design decisions.
+
+  - name: Grant Thornton
+    location: Charlotte, NC
+    body: >-
+      Predictive modeling, sentiment analysis, process automation, and intelligence
+      gathering through document and web-based extraction — delivered for internal
+      stakeholders and owned end to end, from requirements discovery through knowledge
+      transfer.
+    tags: [Python, SQL, Data modeling, Machine learning]
+    roles:
+      - title: Manager, Enterprise Reporting &amp; Analytics
+        dates: Aug 2016 — Oct 2021
+        bullets:
+          - >-
+            Delivered enterprise reporting, analytics, and applied data solutions for
+            internal stakeholders — predictive modeling, sentiment analysis, process
+            automation, and intelligence gathering through document and web-based data
+            extraction.
+          - >-
+            Owned projects end to end through requirements discovery, solution design,
+            implementation, and knowledge transfer; set documentation, code review, and
+            technical standards, and trained both technical and non-technical users.
+
+      - title: Senior Financial Analyst
+        dates: Mar 2014 — Jul 2016
+        bullets:
+          - >-
+            Supported national and regional leadership with operational and financial
+            analysis, reporting, and forecasting; key contributor to the annual
+            budgeting, forecasting, and reserve processes, and mentored analysts
+            firm-wide.
+
+  # Kept off the homepage — the portfolio makes its case with recent work.
+  - name: Time Warner Cable
+    location: Louisville, KY
+    home: false
+    roles:
+      - title: Senior Financial Analyst / Financial Analyst
+        dates: Jul 2011 — Mar 2014
+        bullets:
+          - >-
+            Lead analyst for a $1B division: built the financial outlook and annual
+            budget, developed campaign pricing models, and created exception reporting
+            that improved visibility into operational and financial drivers.
+          - >-
+            Partnered with IT, Finance, and Accounting on initiatives to automate
+            corporate finance and accounting functions, improving efficiency, accuracy,
+            and scalability.
