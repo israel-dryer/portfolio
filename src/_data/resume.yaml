@@ -86,14 +86,16 @@ skills:
       text: API &amp; framework design · Systems design · Full-stack delivery
 
 education:
-  label: Education &amp; Certifications
+  label: Education, Certifications &amp; Teaching
   rows:
     - left: M.S. Accounting
       right: Lynchburg, VA — 2010
+      note: Liberty University
     - left: B.S. Interdisciplinary Studies
       right: Minneapolis, MN — 2006
+      note: North Central University
     - left: "CPA License #12612"
       right: Kentucky — 2013 – 2017
-    - left: Adjunct Faculty, Indiana Wesleyan University
+    - left: Adjunct Faculty, Accounting
       right: Louisville, KY — 2011 – 2016
-      note: Accounting
+      note: Indiana Wesleyan University
